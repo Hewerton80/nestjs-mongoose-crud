@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-//import { Connection } from 'typeorm';
+import { ConfigModule } from '@nestjs/config';
 import { TasksModule } from './tasks/tasks.module';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TasksModule,
-    MongooseModule.forRoot("mongodb+srv://teste:teste@cluster0-hqw9s.mongodb.net/test?retryWrites=true&w=majority",{
+    MongooseModule.forRoot(process.env.MONGO_URL,{
       useNewUrlParser:true,
       useUnifiedTopology:true
     })
